@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chatbot</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background-color: #292929;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            height: 95%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .chat-header h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            background-color: #f9f9f9;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #f1f1f1;
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-right: 10px;
+            background-color: #fff;
+        }
+
+        .input-container button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .user-msg, .ai-msg {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 20px;
+            max-width: 75%;
+            word-wrap: break-word;
+            font-size: 1.1em;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-msg {
+            background-color: #007bff;
+            color: white;
+            text-align: right;
+            margin-left: auto;
+        }
+
+        .ai-msg {
+            background-color: #5bbaa2;
+            color: white;
+            text-align: left;
+            margin-right: auto;
+        }
+
+        .typing {
+            border-right: .1em solid #000;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <svg width="50" height="60" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 " role="img"><text x="-9999" y="-9999">chatgpt</text><path d="M37.53[..."></svg>
+            <h1>Interactive Chatbot</h1>
+        </div>
+        
+        <div class="chat-box" id="chatBox"></div>
+        
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type a message..." onkeypress="if(event.key === 'Enter'){sendMessage()}">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Define the function to handle sending the message
+        function sendMessage() {
+            const userMessage = document.getElementById("userInput").value;
+            if (!userMessage) return; // Don't send empty messages
+
+            // Create a new chat message element for the user's message
+            const chatBox = document.getElementById("chatBox");
+            const userMessageElement = document.createElement("div");
+            userMessageElement.classList.add("user-msg");
+            chatBox.appendChild(userMessageElement);
+
+            // Apply typing effect
+            typeText(userMessageElement, userMessage);
+
+            // Clear the input field after sending
+            document.getElementById("userInput").value = '';
+
+            // Fetch the AI response
+            fetchGroqData(userMessage);
+        }
+
+        // Define the function to handle AI response
+        async function fetchGroqData(prompt) {
+            const apiKey = "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"; // Your API key
+            const url = "https://api.groq.com/openai/v1/chat/completions"; // Groq API endpoint
+
+            const requestBody = {
+                model: "llama3-8b-8192", // Using the model from the API documentation
+                messages: [
+                    {
+                        role: "user", // The role of the message sender
+                        content: prompt, // The user's input message
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}` // Authorization header with your API key
+                    },
+                    body: JSON.stringify(requestBody) // Sending the structured request body
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data from OpenAI API');
+                }
+
+                const data = await response.json();
+                const aiMessage = data.choices[0].message.content; // Assuming the API returns the message in this structure
+
+                // Create a new chat message element for the AI's response
+                const chatBox = document.getElementById("chatBox");
+                const aiMessageElement = document.createElement("div");
+                aiMessageElement.classList.add("ai-msg");
+                chatBox.appendChild(aiMessageElement);
+
+                // Apply typing effect
+                typeText(aiMessageElement, aiMessage);
+
+                // Scroll to the bottom of the chat box
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+            } catch (error) {
+                console.error("Error: ", error);
+            }
+        }
+
+        // Function to simulate typing effect
+        function typeText(element, text) {
+            element.classList.add('typing');
+            let index = 0;
+            
+            function type() {
+                if (index < text.length) {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50); // Adjust typing speed here
+                } else {
+                    element.classList.remove('typing');
+                }
+            }
+
+            type();
+        }
+
+        // Restart chat function
+        function restartChat() {
+            // Clear all messages in the chat box
+            document.getElementById("chatBox").innerHTML = '';
+
+            // Optionally clear the input field
+            document.getElementById("userInput").value = '';
+        }
+    </script>
+</body>
+</html>
