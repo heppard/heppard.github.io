@@ -1,83 +1,69 @@
-styles.css (CSS File)
-```css
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
     text-align: center;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 15px;
+h1 {
+    margin-top: 20px;
+    color: #444;
 }
 
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.hero, .blog, .portfolio, .contact {
+/* Container for Character Cards */
+.character-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 20px;
-    text-align: center;
 }
 
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-.social-links a {
-    color: #fff;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-form label {
+/* Individual Character Card */
+.character-card {
     display: block;
-    margin-bottom: 10px;
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+    background-color: #fff;
 }
 
-form input, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+/* Hover Effect */
+.character-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-form input[type="submit"] {
-    background-color: #4CAF50;
+/* Character Images */
+.character-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+}
+
+/* Reset Button Styling */
+#reset-btn {
+    margin: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
     color: #fff;
+    background-color: #007BFF;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-form input[type="submit"]:hover {
-    background-color: #45a049;
+#reset-btn:hover {
+    background-color: #0056b3;
 }
-```
