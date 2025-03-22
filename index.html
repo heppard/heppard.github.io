@@ -16,7 +16,152 @@
             margin-top: 20px;
         }
         .character-container {
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Character Cards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        .character-container {
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .character-card {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+            text-decoration: none;
+            color: black;
+            background-color: white;
+            position: relative;
+        }
+        .character-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        .character-img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        #reset-btn {
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #reset-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meet the Robots</h1>
+    <div class="character-container">
+        <!-- Alex -->
+        <a class="character-card" href="alex.html">
+            <img class="character-img" src="alex.png" alt="Alex, the Friendly Guide">
+            <h2>Alex</h2>
+            <p>Your friendly guide and digital concierge, always here to help!</p>
+        </a>
+        <!-- Zara -->
+        <a class="character-card" href="zara.html">
+            <img class="character-img" src="zara.png" alt="Zara, the Futuristic AI">
+            <h2>Zara</h2>
+            <p>A futuristic tech wizard with a knack for solving complex challenges.</p>
+        </a>
+        <!-- Sammy -->
+        <a class="character-card" href="sammy.html">
+            <img class="character-img" src="sammy.png" alt="Sammy, the Whimsical Bot">
+            <h2>Sammy</h2>
+            <p>The playful bot who adds humor and fun to every interaction!</p>
+        </a>
+        <!-- Professor Quill -->
+        <a class="character-card" href="quill.html">
+            <img class="character-img" src="quill.png" alt="Professor Quill, the Knowledge Expert">
+            <h2>Professor Quill</h2>
+            <p>A wise and knowledgeable bot ready to share insights and solve problems.</p>
+        </a>
+        <!-- Sky -->
+        <a class="character-card" href="sky.html">
+            <img class="character-img" src="sky.png" alt="Sky, the Energetic Adventurer">
+            <h2>Sky</h2>
+            <p>An adventurous spirit here to spark enthusiasm and curiosity.</p>
+        </a>
+        <!-- Jazz -->
+        <a class="character-card" href="jazz.html">
+            <img class="character-img" src="jazz.png" alt="Jazz, the Creative Visionary">
+            <h2>Jazz</h2>
+            <p>A creative visionary who inspires innovative ideas and artistic thinking.</p>
+        </a>
+    </div>
+
+    <!-- Reset Button -->
+    <button id="reset-btn">Reset</button>
+
+    <!-- GSAP Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // Click interaction: Expand, fly away, and navigate to link
+        document.querySelectorAll(".character-card").forEach(card => {
+            card.addEventListener("click", event => {
+                event.preventDefault(); // Prevent immediate navigation
+                const link = card.href; // Use href attribute of the anchor tag
+                gsap.to(card, {
+                    scale: 2,
+                    rotation: 360,
+                    x: "random(-500, 500)",
+                    y: "random(-500, 500)",
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        window.location.href = link; // Navigate after animation
+                    }
+                });
+            });
+        });
+
+        // Reset Button Functionality
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            const cards = document.querySelectorAll('.character-card');
+            cards.forEach(card => {
+                gsap.to(card, {
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                    rotation: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+            console.log('Cards reset to their original positions!');
+        });
+    </script>
+</body>
+</html>      display: flex;
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
