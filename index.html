@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - My GitHub Pages Site</title>
+<style>
+body {
+margin: 0;
+height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+font-family: Arial, sans-serif;
+background: linear-gradient(90deg, #000000, #00ff00, #000000);
+background-size: 300% 300%;
+animation: gradientShift 6s infinite ease-in-out;
+color: black; /* Changed text color to black */
+}
+
+@keyframes gradientShift {
+0% {
+background-position: 0% 50%;
+}
+50% {
+background-position: 100% 50%;
+}
+100% {
+background-position: 0% 50%;
+}
+}
+
+a {
+color: #00ff00;
+text-decoration: none;
+transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+color: white;
+}
+
+header, footer {
+text-align: center;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Welcome to my website this is aplace i get to goof off and explore My
+weirdest ambitions
+</h1>
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About Me</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="https://github.com/heppard">GitHub</a></li>
+<li><a href="https://twitter.com/heppard">Twitter</a></li>
+<li><a href="https://linkedin.com/in/heppard">LinkedIn</a></li>
+</ul>
+</nav>
+</header>
+<main>
+<section>
+<h2>Introduction</h2>
+<p>This is the home server of chris heppard and my many wacky thoughts
+. Here you can find information about me and my projects.</p>
+</section>
+<section>
+<h2>Recent Projects</h2>
+<p>Check out some of my recent projects below:</p>
+<ul>
+<li><a href="project1.html">Project 1</a></li>
+<li><a href="project2.html">Project 2</a></li>
+<li><a href="project3.html">Project 3</a></li>
+</ul>
+</section>
+</main>
+<footer>
+<p>&copy; 2025 christopher heppard All rights reserved.</p>
+</footer>
+</body>
+</html>
